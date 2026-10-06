@@ -1,26 +1,136 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-obsidian: #030712;
+  --color-slate-deep: #0b0f19;
+  --color-lime: #00ff66;
+  --color-indigo: #6366f1;
+  --color-cyan: #00f0ff;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --ease-out-quint: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-obsidian);
+  color: #e2e8f0;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* siatka w tle: czysty CSS, bez canvasa */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 85%);
+}
+
+@keyframes grid-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.glass-card {
+  --mx: 50%;
+  --my: 50%;
+  --glow: #00f0ff;
+  position: relative;
+  background: rgba(15,23,42,0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 18px) 0,
+    100% 18px,
+    100% 100%,
+    18px 100%,
+    0 calc(100% - 18px)
+  );
+  transition: 
+    filter 0.5s var(--ease-out-quint),
+    opacity 0.5s var(--ease-out-quint);
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  pointer-events: none;
+  background: radial-gradient(
+    320px circle at var(--mx) var(--my),
+    var(--glow),
+    rgba(99, 102, 241, 0.3) 45%,
+    rgba(255, 255, 255, 0.07) 100%
+  );
+  /* wycina środek, zostaje tylko 1px obramowania */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  opacity: 0.45;
+  transition: opacity 0.4s var(--ease-out-quint);
+}
+
+.glass-card:hover::before {
+  opacity: 1;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.glass-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: 18px 18px;
+  background-position:
+    top right,
+    bottom left;
+  background-image:
+    linear-gradient(
+      to top right,
+      transparent calc(50% - 3px),
+      var(--glow) calc(50% - 3px),
+      var(--glow) calc(50% - 1px),
+      transparent calc(50% - 1px)
+    ),
+    linear-gradient(
+      to top right,
+      transparent calc(50% + 1px),
+      var(--glow) calc(50% + 1px),
+      var(--glow) calc(50% + 3px),
+      transparent calc(50% + 3px)
+    );
+  opacity: 0.55;
+  transition: opacity 0.4s var(--ease-out-quint);
+}
+
+.glass-card:hover::after {
+  opacity: 1;
+}
+
+@keyframes scan {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes bar {
+  0%, 100% { transform: scaleY(0.25); }
+  50% { transform: scaleY(1); }
 }
