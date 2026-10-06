@@ -1,4 +1,4 @@
-import { BentoGrid, bentoSpan } from "@/components/bento/BentoGrid";
+import { BentoGrid } from "@/components/bento/BentoGrid";
 import { GlassCard } from "@/components/bento/GlassCard";
 import { GithubCard } from "@/components/cards/GithubCard";
 import { LocalClock } from "@/components/cards/LocalClock";
@@ -9,6 +9,8 @@ import { PROJECTS } from "@/data/projects";
 import { SITE } from "@/data/site";
 import { DependencyGraph } from "@/components/stack/DependencyGraph";
 import { StackFilterProvider } from "@/components/stack/StackFilterContext";
+import { Terminal } from "@/components/console/Terminal";
+
 
 export default function Home() {
   const [featured, docmind, syncboard, pulsewatch, portfolio] = PROJECTS;
@@ -39,12 +41,7 @@ export default function Home() {
         <ProjectCard project={syncboard} delay={0.18} />
         <ProjectCard project={pulsewatch} delay={0.26} />
 
-        <GlassCard glow="#00ff66" className={bentoSpan("2x1")} delay={0.1}>
-          <p className="font-mono text-xs text-lime">{"// TERMINAL"}</p>
-          <p className="mt-3 font-mono text-sm text-slate-500">
-            guest@fosiak:~$ (warstwa 6)
-          </p>
-        </GlassCard>
+      <Terminal delay={0.1} />
 
         <ProjectCard project={portfolio} delay={0.18} />
 
