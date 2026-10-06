@@ -7,17 +7,20 @@ import { GridBackground } from "@/components/fx/GridBackground";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { PROJECTS } from "@/data/projects";
 import { SITE } from "@/data/site";
+import { DependencyGraph } from "@/components/stack/DependencyGraph";
+import { StackFilterProvider } from "@/components/stack/StackFilterContext";
 
 export default function Home() {
   const [featured, docmind, syncboard, pulsewatch, portfolio] = PROJECTS;
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <main className="relative mx-auto max-w-6xl px-4 py-10 sm:px-6">
+      <StackFilterProvider>
       <GridBackground />
 
       <header className="mb-10">
         <p className="font-mono text-sm text-lime">{"> fosiak.pl"}</p>
-        <h1 className="mt-2 text-4xl font-semibold tracking-[0.05em] text-white sm:text-6xl">
+        <h1 className="mt-2 text-4xl font-semibold tracking-wider text-white sm:text-6xl">
           Fullstack Developer
         </h1>
         <p className="mt-3 max-w-xl text-slate-400">
@@ -60,6 +63,8 @@ export default function Home() {
           </a>
         </GlassCard>
       </BentoGrid>
+    <DependencyGraph />
+      </StackFilterProvider>
     </main>
   );
 }

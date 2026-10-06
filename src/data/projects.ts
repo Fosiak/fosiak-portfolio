@@ -14,7 +14,7 @@ export type Project = {
   tech: TechId[];
   repo?: string;
   demo?: string;
-  telemetry: { endpoint: string; baseMs: number };
+  telemetry: { endpoint: string; url?: string };
   preview?: { poster?: string; video?: string; iframe?: string };
 };
 
@@ -28,7 +28,7 @@ export const PROJECTS: Project[] = [
     size: "2x2",
     glow: "#00f0ff",
     tech: ["python", "django", "drf", "jwt", "react", "tailwind", "postgresql"],
-    telemetry: { endpoint: "POST /api/auth/token/refresh", baseMs: 38 },
+    telemetry: { endpoint: "POST /api/auth/token/refresh" },
   },
   {
     id: "docmind",
@@ -39,7 +39,7 @@ export const PROJECTS: Project[] = [
     size: "2x1",
     glow: "#00ff66",
     tech: ["python", "fastapi", "llm", "pgvector", "postgresql", "nextjs", "docker"],
-    telemetry: { endpoint: "POST /v1/query (SSE)", baseMs: 180 },
+    telemetry: { endpoint: "POST /v1/query (SSE)"},
   },
   {
     id: "syncboard",
@@ -50,7 +50,7 @@ export const PROJECTS: Project[] = [
     size: "1x1",
     glow: "#6366f1",
     tech: ["django", "websockets", "redis", "react", "typescript"],
-    telemetry: { endpoint: "WS /board/sync", baseMs: 12 },
+    telemetry: { endpoint: "WS /board/sync"},
   },
   {
     id: "pulsewatch",
@@ -61,7 +61,7 @@ export const PROJECTS: Project[] = [
     size: "1x1",
     glow: "#00ff66",
     tech: ["django", "celery", "redis", "postgresql", "docker", "githubactions"],
-    telemetry: { endpoint: "GET /api/checks", baseMs: 54 },
+    telemetry: { endpoint: "GET /api/checks"},
   },
   {
     id: "fosiak-portfolio",
@@ -73,6 +73,6 @@ export const PROJECTS: Project[] = [
     glow: "#00f0ff",
     tech: ["nextjs", "typescript", "tailwind", "framermotion", "docker"],
     repo: SITE.repo,
-    telemetry: { endpoint: "GET /api/github", baseMs: 24 },
+    telemetry: { endpoint: "GET /api/health", url: "/api/health" },
   },
 ];

@@ -2,12 +2,15 @@
 
 import { motion } from "motion/react";
 import type { PointerEvent, ReactNode } from "react";
+import { useStackFilter } from "@/components/stack/StackFilterContext";
+import type { TechId } from "@/data/stack";
 
 type GlassCardProps = {
   children: ReactNode;
   className?: string;
   glow?: string;
   delay?: number;
+  tech?: TechId[];
 };
 
 export function GlassCard({
@@ -15,7 +18,18 @@ export function GlassCard({
   className = "",
   glow = "#00f0ff",
   delay = 0,
+  tech,
 }: GlassCardProps) {
+  const { selected } = useStackFilter();
+
+  const filter = !tech
+    ? undefined
+    : selected === null
+      ? "idle"
+      : tech.includes(selected)
+        ? "match"
+        : "dim";
+
   function handlePointerMove(e: PointerEvent<HTMLDivElement>) {
     const el = e.currentTarget;
     const rect = el.getBoundingClientRect();
@@ -30,6 +44,7 @@ export function GlassCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}
+      data-filter={filter}
       style={{ "--glow": glow } as React.CSSProperties}
       className={`glass-card p-5 ${className}`}
     >

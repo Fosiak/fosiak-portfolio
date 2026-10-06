@@ -27,6 +27,7 @@ export function ProjectCard({
     <GlassCard
       glow={project.glow}
       delay={delay}
+      tech={project.tech}
       className={`flex flex-col ${bentoSpan(project.size)}`}
     >
       <PreviewMedia preview={project.preview} />
@@ -56,7 +57,7 @@ export function ProjectCard({
       <TaglineTicker
         tagline={project.tagline}
         endpoint={project.telemetry.endpoint}
-        baseMs={project.telemetry.baseMs}
+        url={project.telemetry.url}
       />
 
       <div className="mt-auto flex flex-wrap gap-1.5 pt-4">
